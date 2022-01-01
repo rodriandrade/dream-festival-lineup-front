@@ -89,6 +89,7 @@ function App() {
 
   const handleDownloadImage = async () => {
     console.log(data)
+    /*
     setPreviewPoster('')
     setOpenModal(true)
     const poster = {
@@ -106,9 +107,7 @@ function App() {
       link.href = get.data.image;
       link.click();
     }
-    
-    
-    /*
+       */
     const mobile = { quality: 0.95 }
 
    console.log(printRef.current)
@@ -119,7 +118,7 @@ function App() {
       link.href = dataUrl;
       link.click();
     });
-    */
+ 
   };
 
   const handleChange = (e) => {
