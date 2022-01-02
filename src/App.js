@@ -121,6 +121,13 @@ function App() {
     */
   };
 
+  const downloadImageMobile = () => {
+    var link = document.createElement('a');
+    link.download = 'my-image-name.jpeg';
+    link.href = previewPoster;
+    link.click();
+  }
+
   const handleChange = (e) => {
     const {name, value} = e.target
     let identifiers = name.split('-')
@@ -153,7 +160,7 @@ function App() {
                 <h2>Poster preview</h2>
                 <img src={previewPoster} />
                 <span>Image resolution: 960px x 960px</span>
-                <button>Descargar</button>
+                <button onClick={downloadImageMobile}>Descargar</button>
               </>
             :
               <>
