@@ -88,7 +88,6 @@ function App() {
   }, [themeSelected])
 
   const handleDownloadImage = async () => {
-    console.log(data)
     
     setPreviewPoster('')
     setOpenModal(true)
