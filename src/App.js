@@ -89,14 +89,14 @@ function App() {
 
   const handleDownloadImage = async () => {
     console.log(data)
-    /*
+    
     setPreviewPoster('')
     setOpenModal(true)
     const poster = {
       data: data,
       theme: themeSelected
     }
-    const get = await axios.post('http://localhost:5000/generate', poster)
+    const get = await axios.post('https://dream-festival-lineup-backend.herokuapp.com/generate', poster)
     console.log(get)
     setPreviewPoster(get.data.image)
     
@@ -107,7 +107,8 @@ function App() {
       link.href = get.data.image;
       link.click();
     }
-       */
+       
+    /*
     const mobile = { quality: 0.95 }
 
    console.log(printRef.current)
@@ -118,7 +119,7 @@ function App() {
       link.href = dataUrl;
       link.click();
     });
- 
+    */
   };
 
   const handleChange = (e) => {
@@ -232,7 +233,10 @@ function App() {
               </div>
               <div className="inputsCont3">
                 <DayInputs reveal={fridayInputs}>
-                  <h2 className="title">Headliners artists</h2>
+                  <div className="inputTitleCont">
+                    <h2 className="title">Headliners artists</h2>
+                    <h2>Open</h2>
+                  </div>
                   <div className="inputsCont2">
                     <input placeholder='Add headliner' name="friday-headliners-0" onChange={handleChange} value={data.friday.headliners[0]}/>
                     <input placeholder='Add headliner' name="friday-headliners-1" onChange={handleChange} value={data.friday.headliners[1]}/>
@@ -419,9 +423,9 @@ function App() {
                   <div className="circleDefault1"></div>
                   <div className="circleDefault2"></div>
                   <div className="circleDefault3"></div>
-                  <h1>Acá va el poster</h1>
-                  <span>Elegí un tema para empezar con tu lineup</span>
-                  <a href="#theme" >Seleccionar tema</a>
+                  <h1>Poster preview</h1>
+                  <span>Select a theme to make your dream lineup :)</span>
+                  <a href="#theme" >Select theme</a>
                 </div>
               </div>
               : null
