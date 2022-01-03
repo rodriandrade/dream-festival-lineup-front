@@ -12,12 +12,15 @@ import Kite3 from '../src/images/kite3.png'
 import Kite4 from '../src/images/kite4.png'
 import Shine from '../src/images/shine.svg'
 import Check from '../src/images/check.svg'
+import Close from '../src/images/close.svg'
+import ChevronDown from '../src/images/chevron_down.svg'
 import MainCircle from '../src/images/main_circle.svg'
 import LollaTheme from '../src/images/lolla-theme.png'
 import Fantasy01Theme from '../src/images/fantasy01-theme.png'
 import {Grid, Col} from '../src/components/Grid'
 import { toPng, toJpeg } from 'html-to-image';
 import axios from 'axios'
+import InputsContainer from '../src/components/InputsContainer';
 
 function App() {
 
@@ -46,6 +49,7 @@ function App() {
   const [previewPoster, setPreviewPoster] = useState('')
   const [isMobile, setIsMobile] = useState(false)
   const [openModal, setOpenModal] = useState(false)
+  const [isOpenInputContainer, setIsOpenInputContainer] = useState(false)
   const printRef = React.useRef();
 
   useEffect(() => {
@@ -95,7 +99,8 @@ function App() {
       data: data,
       theme: themeSelected
     }
-    const get = await axios.post('https://dream-festival-lineup-backend.herokuapp.com/generate', poster)
+    // https://dream-festival-lineup-backend.herokuapp.com/generate
+    const get = await axios.post('http://localhost:4000/generate', poster)
     console.log(get)
     setPreviewPoster(get.data.image)
     
@@ -118,6 +123,9 @@ function App() {
       link.href = dataUrl;
       link.click();
     });
+
+
+    
     */
   };
 
@@ -152,20 +160,25 @@ function App() {
     <div className="App">
       {openModal && isMobile ? 
       <Modal>
-        <div>
+        <div className="modalContentContainer">
+          
           <div className="modalCont">
-            <h1 onClick={()=>setOpenModal(false)}>X</h1>
+          
             {previewPoster ? 
               <>
+                <img onClick={()=>setOpenModal(false)} src={Close} alt="close_icon" className="close" />
                 <h2>Poster preview</h2>
                 <img src={previewPoster} />
-                <span>Image resolution: 960px x 960px</span>
-                <button onClick={downloadImageMobile}>Descargar</button>
+                <button onClick={downloadImageMobile}>Download</button>
               </>
             :
-              <>
-                <span>Loading...</span>
-              </>
+              <div className="loadingCont">
+                <div className="circleLogoSmall">
+                  <img className="s" src={Shine} alt="shine" />
+                  <img className="a" src={Shine} alt="shine" />
+                </div>
+                <span>Generating image...</span>
+              </div>
             }
           </div>
         
@@ -175,15 +188,17 @@ function App() {
 
       <Grid>
         <Col desktop={6} mobile={12}>
-          <div className="hero">
-              <div className="circleLogo">
-                <img className="shine" src={Shine} alt="shine" />
-                <img className="shine2" src={Shine} alt="shine" />
-              </div>
-              <h1 className="title2">DREAM FESTIVAL LINEUP</h1>
-              <p>Prepare a dream lineup and share it with everyone!</p> 
-              <button>Prepare lineup</button>
+        
+            <div className="hero">
+                <div className="circleLogo">
+                  <img className="shine" src={Shine} alt="shine" />
+                  <img className="shine2" src={Shine} alt="shine" />
+                </div>
+                <h1 className="title2">DREAM FESTIVAL LINEUP</h1>
+                <p>Prepare the lineup of your dreams</p> 
+                <button>Prepare lineup</button>
             </div>
+          
            
           <div className="main">
         
@@ -239,133 +254,125 @@ function App() {
               </div>
               <div className="inputsCont3">
                 <DayInputs reveal={fridayInputs}>
-                  <div className="inputTitleCont">
-                    <h2 className="title">Headliners artists</h2>
-                    <h2>Open</h2>
-                  </div>
-                  <div className="inputsCont2">
-                    <input placeholder='Add headliner' name="friday-headliners-0" onChange={handleChange} value={data.friday.headliners[0]}/>
-                    <input placeholder='Add headliner' name="friday-headliners-1" onChange={handleChange} value={data.friday.headliners[1]}/>
-                    <input placeholder='Add headliner' name="friday-headliners-2" onChange={handleChange} value={data.friday.headliners[2]}/>
-                  </div>
+                  <InputsContainer title={"Headliners artists"} >
+                    <input placeholder='Add headliner artist' name="friday-headliners-0" onChange={handleChange} value={data.friday.headliners[0]}/>
+                    <input placeholder='Add headliner artist' name="friday-headliners-1" onChange={handleChange} value={data.friday.headliners[1]}/>
+                    <input placeholder='Add headliner artist' name="friday-headliners-2" onChange={handleChange} value={data.friday.headliners[2]}/>
+                  </InputsContainer>
 
-                  <h2 className="title">Secondary artists</h2>
-                  <div className="inputsCont2">
-                    <input placeholder='Add secondary' name="friday-secondary-0" onChange={handleChange} value={data.friday.secondary[0]}/>
-                    <input placeholder='Add secondary' name="friday-secondary-1" onChange={handleChange} value={data.friday.secondary[1]}/>
-                    <input placeholder='Add secondary' name="friday-secondary-2" onChange={handleChange} value={data.friday.secondary[2]}/>
-                    <input placeholder='Add secondary' name="friday-secondary-3" onChange={handleChange} value={data.friday.secondary[3]}/>
-                    <input placeholder='Add secondary' name="friday-secondary-4" onChange={handleChange} value={data.friday.secondary[4]}/>
-                    <input placeholder='Add secondary' name="friday-secondary-5" onChange={handleChange} value={data.friday.secondary[5]}/>
-                    <input placeholder='Add secondary' name="friday-secondary-6" onChange={handleChange} value={data.friday.secondary[6]}/>
-                    <input placeholder='Add secondary' name="friday-secondary-7" onChange={handleChange} value={data.friday.secondary[7]}/>
-                    <input placeholder='Add secondary' name="friday-secondary-8" onChange={handleChange} value={data.friday.secondary[8]}/>
-                  </div>
+                  <InputsContainer title={"Secondary artists"} >
+                    <input placeholder='Add secondary artist' name="friday-secondary-0" onChange={handleChange} value={data.friday.secondary[0]}/>
+                    <input placeholder='Add secondary artist' name="friday-secondary-1" onChange={handleChange} value={data.friday.secondary[1]}/>
+                    <input placeholder='Add secondary artist' name="friday-secondary-2" onChange={handleChange} value={data.friday.secondary[2]}/>
+                    <input placeholder='Add secondary artist' name="friday-secondary-3" onChange={handleChange} value={data.friday.secondary[3]}/>
+                    <input placeholder='Add secondary artist' name="friday-secondary-4" onChange={handleChange} value={data.friday.secondary[4]}/>
+                    <input placeholder='Add secondary artist' name="friday-secondary-5" onChange={handleChange} value={data.friday.secondary[5]}/>
+                    <input placeholder='Add secondary artist' name="friday-secondary-6" onChange={handleChange} value={data.friday.secondary[6]}/>
+                    <input placeholder='Add secondary artist' name="friday-secondary-7" onChange={handleChange} value={data.friday.secondary[7]}/>
+                    <input placeholder='Add secondary artist' name="friday-secondary-8" onChange={handleChange} value={data.friday.secondary[8]}/>
+                  </InputsContainer>
 
-                  <h2 className="title">Others artists</h2>
-                  <div className="inputsCont2">
-                    <input placeholder='Add other' name="friday-others-0" onChange={handleChange} value={data.friday.others[0]}/>
-                    <input placeholder='Add other' name="friday-others-1" onChange={handleChange} value={data.friday.others[1]}/>
-                    <input placeholder='Add other' name="friday-others-2" onChange={handleChange} value={data.friday.others[2]}/>
-                    <input placeholder='Add other' name="friday-others-3" onChange={handleChange} value={data.friday.others[3]}/>
-                    <input placeholder='Add other' name="friday-others-4" onChange={handleChange} value={data.friday.others[4]}/>
-                    <input placeholder='Add other' name="friday-others-5" onChange={handleChange} value={data.friday.others[5]}/>
-                    <input placeholder='Add other' name="friday-others-6" onChange={handleChange} value={data.friday.others[6]}/>
-                    <input placeholder='Add other' name="friday-others-7" onChange={handleChange} value={data.friday.others[7]}/>
-                    <input placeholder='Add other' name="friday-others-8" onChange={handleChange} value={data.friday.others[8]}/>
-                    <input placeholder='Add other' name="friday-others-9" onChange={handleChange} value={data.friday.others[9]}/>
-                    <input placeholder='Add other' name="friday-others-10" onChange={handleChange} value={data.friday.others[10]}/>
-                    <input placeholder='Add other' name="friday-others-11" onChange={handleChange} value={data.friday.others[11]}/>
-                    <input placeholder='Add other' name="friday-others-12" onChange={handleChange} value={data.friday.others[12]}/>
-                    <input placeholder='Add other' name="friday-others-13" onChange={handleChange} value={data.friday.others[13]}/>
-                    <input placeholder='Add other' name="friday-others-14" onChange={handleChange} value={data.friday.others[14]}/>
-                  </div>
+                  <InputsContainer title={"Other artists"} >
+                    <input placeholder='Add other artist' name="friday-others-0" onChange={handleChange} value={data.friday.others[0]}/>
+                    <input placeholder='Add other artist' name="friday-others-1" onChange={handleChange} value={data.friday.others[1]}/>
+                    <input placeholder='Add other artist' name="friday-others-2" onChange={handleChange} value={data.friday.others[2]}/>
+                    <input placeholder='Add other artist' name="friday-others-3" onChange={handleChange} value={data.friday.others[3]}/>
+                    <input placeholder='Add other artist' name="friday-others-4" onChange={handleChange} value={data.friday.others[4]}/>
+                    <input placeholder='Add other artist' name="friday-others-5" onChange={handleChange} value={data.friday.others[5]}/>
+                    <input placeholder='Add other artist' name="friday-others-6" onChange={handleChange} value={data.friday.others[6]}/>
+                    <input placeholder='Add other artist' name="friday-others-7" onChange={handleChange} value={data.friday.others[7]}/>
+                    <input placeholder='Add other artist' name="friday-others-8" onChange={handleChange} value={data.friday.others[8]}/>
+                    <input placeholder='Add other artist' name="friday-others-9" onChange={handleChange} value={data.friday.others[9]}/>
+                    <input placeholder='Add other artist' name="friday-others-10" onChange={handleChange} value={data.friday.others[10]}/>
+                    <input placeholder='Add other artist' name="friday-others-11" onChange={handleChange} value={data.friday.others[11]}/>
+                    <input placeholder='Add other artist' name="friday-others-12" onChange={handleChange} value={data.friday.others[12]}/>
+                    <input placeholder='Add other artist' name="friday-others-13" onChange={handleChange} value={data.friday.others[13]}/>
+                    <input placeholder='Add other artist' name="friday-others-14" onChange={handleChange} value={data.friday.others[14]}/>
+                  </InputsContainer>
 
                 </DayInputs>
                 
                 <DayInputs reveal={saturdayInputs}>
-                  <h2 className="title">Headliners artists</h2>
-                  <div className="inputsCont2">
-                    <input placeholder='Add headliner' name="saturday-headliners-0" onChange={handleChange} value={data.saturday.headliners[0]} />
-                    <input placeholder='Add headliner' name="saturday-headliners-1" onChange={handleChange} value={data.saturday.headliners[1]} />
-                    <input placeholder='Add headliner' name="saturday-headliners-2" onChange={handleChange} value={data.saturday.headliners[2]} />
-                  </div>
+                  <InputsContainer title={"Headliners artists"} >
+                    <input placeholder='Add headliner artist' name="saturday-headliners-0" onChange={handleChange} value={data.saturday.headliners[0]} />
+                    <input placeholder='Add headliner artist' name="saturday-headliners-1" onChange={handleChange} value={data.saturday.headliners[1]} />
+                    <input placeholder='Add headliner artist' name="saturday-headliners-2" onChange={handleChange} value={data.saturday.headliners[2]} />
+                  </InputsContainer>
 
-                  <h2 className="title">Secondary artists</h2>
-                  <div className="inputsCont2">
-                    <input placeholder='Add secondary' name="saturday-secondary-0" onChange={handleChange} value={data.saturday.secondary[0]} />
-                    <input placeholder='Add secondary' name="saturday-secondary-1" onChange={handleChange} value={data.saturday.secondary[1]} />
-                    <input placeholder='Add secondary' name="saturday-secondary-2" onChange={handleChange} value={data.saturday.secondary[2]} />
-                    <input placeholder='Add secondary' name="saturday-secondary-3" onChange={handleChange} value={data.saturday.secondary[3]} />
-                    <input placeholder='Add secondary' name="saturday-secondary-4" onChange={handleChange} value={data.saturday.secondary[4]} />
-                    <input placeholder='Add secondary' name="saturday-secondary-5" onChange={handleChange} value={data.saturday.secondary[5]} />
-                    <input placeholder='Add secondary' name="saturday-secondary-6" onChange={handleChange} value={data.saturday.secondary[6]} />
-                    <input placeholder='Add secondary' name="saturday-secondary-7" onChange={handleChange} value={data.saturday.secondary[7]} />
-                    <input placeholder='Add secondary' name="saturday-secondary-8" onChange={handleChange} value={data.saturday.secondary[8]} />
-                  </div>
+                  <InputsContainer title={"Secondary artists"} >
+                    <input placeholder='Add secondary artist' name="saturday-secondary-0" onChange={handleChange} value={data.saturday.secondary[0]} />
+                    <input placeholder='Add secondary artist' name="saturday-secondary-1" onChange={handleChange} value={data.saturday.secondary[1]} />
+                    <input placeholder='Add secondary artist' name="saturday-secondary-2" onChange={handleChange} value={data.saturday.secondary[2]} />
+                    <input placeholder='Add secondary artist' name="saturday-secondary-3" onChange={handleChange} value={data.saturday.secondary[3]} />
+                    <input placeholder='Add secondary artist' name="saturday-secondary-4" onChange={handleChange} value={data.saturday.secondary[4]} />
+                    <input placeholder='Add secondary artist' name="saturday-secondary-5" onChange={handleChange} value={data.saturday.secondary[5]} />
+                    <input placeholder='Add secondary artist' name="saturday-secondary-6" onChange={handleChange} value={data.saturday.secondary[6]} />
+                    <input placeholder='Add secondary artist' name="saturday-secondary-7" onChange={handleChange} value={data.saturday.secondary[7]} />
+                    <input placeholder='Add secondary artist' name="saturday-secondary-8" onChange={handleChange} value={data.saturday.secondary[8]} />
+                  </InputsContainer>
 
-                  <h2 className="title">Others artists</h2>
-                  <div className="inputsCont2">
-                    <input placeholder='Add other' name="saturday-others-0" onChange={handleChange} value={data.saturday.others[0]} />
-                    <input placeholder='Add other' name="saturday-others-1" onChange={handleChange} value={data.saturday.others[1]} />
-                    <input placeholder='Add other' name="saturday-others-2" onChange={handleChange} value={data.saturday.others[2]} />
-                    <input placeholder='Add other' name="saturday-others-3" onChange={handleChange} value={data.saturday.others[3]} />
-                    <input placeholder='Add other' name="saturday-others-4" onChange={handleChange} value={data.saturday.others[4]} />
-                    <input placeholder='Add other' name="saturday-others-5" onChange={handleChange} value={data.saturday.others[5]} />
-                    <input placeholder='Add other' name="saturday-others-6" onChange={handleChange} value={data.saturday.others[6]} />
-                    <input placeholder='Add other' name="saturday-others-7" onChange={handleChange} value={data.saturday.others[7]} />
-                    <input placeholder='Add other' name="saturday-others-8" onChange={handleChange} value={data.saturday.others[8]} />
-                    <input placeholder='Add other' name="saturday-others-9" onChange={handleChange} value={data.saturday.others[9]} />
-                    <input placeholder='Add other' name="saturday-others-10" onChange={handleChange} value={data.saturday.others[10]} />
-                    <input placeholder='Add other' name="saturday-others-11" onChange={handleChange} value={data.saturday.others[11]} />
-                    <input placeholder='Add other' name="saturday-others-12" onChange={handleChange} value={data.saturday.others[12]} />
-                    <input placeholder='Add other' name="saturday-others-13" onChange={handleChange} value={data.saturday.others[13]} />
-                    <input placeholder='Add other' name="saturday-others-14" onChange={handleChange} value={data.saturday.others[14]} />
-                  </div>
+                  <InputsContainer title={"Other artists"} >
+                    <input placeholder='Add other artist' name="saturday-others-0" onChange={handleChange} value={data.saturday.others[0]} />
+                    <input placeholder='Add other artist' name="saturday-others-1" onChange={handleChange} value={data.saturday.others[1]} />
+                    <input placeholder='Add other artist' name="saturday-others-2" onChange={handleChange} value={data.saturday.others[2]} />
+                    <input placeholder='Add other artist' name="saturday-others-3" onChange={handleChange} value={data.saturday.others[3]} />
+                    <input placeholder='Add other artist' name="saturday-others-4" onChange={handleChange} value={data.saturday.others[4]} />
+                    <input placeholder='Add other artist' name="saturday-others-5" onChange={handleChange} value={data.saturday.others[5]} />
+                    <input placeholder='Add other artist' name="saturday-others-6" onChange={handleChange} value={data.saturday.others[6]} />
+                    <input placeholder='Add other artist' name="saturday-others-7" onChange={handleChange} value={data.saturday.others[7]} />
+                    <input placeholder='Add other artist' name="saturday-others-8" onChange={handleChange} value={data.saturday.others[8]} />
+                    <input placeholder='Add other artist' name="saturday-others-9" onChange={handleChange} value={data.saturday.others[9]} />
+                    <input placeholder='Add other artist' name="saturday-others-10" onChange={handleChange} value={data.saturday.others[10]} />
+                    <input placeholder='Add other artist' name="saturday-others-11" onChange={handleChange} value={data.saturday.others[11]} />
+                    <input placeholder='Add other artist' name="saturday-others-12" onChange={handleChange} value={data.saturday.others[12]} />
+                    <input placeholder='Add other artist' name="saturday-others-13" onChange={handleChange} value={data.saturday.others[13]} />
+                    <input placeholder='Add other artist' name="saturday-others-14" onChange={handleChange} value={data.saturday.others[14]} />
+                  </InputsContainer>
                 </DayInputs>
                 
                 <DayInputs reveal={sundayInputs}>
-                  <h2 className="title">Headliners artists</h2>
-                  <div className="inputsCont2">
-                    <input placeholder='Add headliner' name="sunday-headliners-0" onChange={handleChange} value={data.sunday.headliners[0]} />
-                    <input placeholder='Add headliner' name="sunday-headliners-1" onChange={handleChange} value={data.sunday.headliners[1]} />
-                    <input placeholder='Add headliner' name="sunday-headliners-2" onChange={handleChange} value={data.sunday.headliners[2]} />
-                  </div>
+                  <InputsContainer title={"Headliners artists"} >
+                    <input placeholder='Add headliner artist' name="sunday-headliners-0" onChange={handleChange} value={data.sunday.headliners[0]} />
+                    <input placeholder='Add headliner artist' name="sunday-headliners-1" onChange={handleChange} value={data.sunday.headliners[1]} />
+                    <input placeholder='Add headliner artist' name="sunday-headliners-2" onChange={handleChange} value={data.sunday.headliners[2]} />
+                  </InputsContainer>
 
-                  <h2 className="title">Secondary artists</h2>
-                  <div className="inputsCont2">
-                    <input placeholder='Add secondary' name="sunday-secondary-0" onChange={handleChange} value={data.sunday.secondary[0]} />
-                    <input placeholder='Add secondary' name="sunday-secondary-1" onChange={handleChange} value={data.sunday.secondary[1]} />
-                    <input placeholder='Add secondary' name="sunday-secondary-2" onChange={handleChange} value={data.sunday.secondary[2]} />
-                    <input placeholder='Add secondary' name="sunday-secondary-3" onChange={handleChange} value={data.sunday.secondary[3]} />
-                    <input placeholder='Add secondary' name="sunday-secondary-4" onChange={handleChange} value={data.sunday.secondary[4]} />
-                    <input placeholder='Add secondary' name="sunday-secondary-5" onChange={handleChange} value={data.sunday.secondary[5]} />
-                    <input placeholder='Add secondary' name="sunday-secondary-6" onChange={handleChange} value={data.sunday.secondary[6]} />
-                    <input placeholder='Add secondary' name="sunday-secondary-7" onChange={handleChange} value={data.sunday.secondary[7]} />
-                    <input placeholder='Add secondary' name="sunday-secondary-8" onChange={handleChange} value={data.sunday.secondary[8]} />
-                  </div>
+                  <InputsContainer title={"Secondary artists"} >
+                    <input placeholder='Add secondary artist' name="sunday-secondary-0" onChange={handleChange} value={data.sunday.secondary[0]} />
+                    <input placeholder='Add secondary artist' name="sunday-secondary-1" onChange={handleChange} value={data.sunday.secondary[1]} />
+                    <input placeholder='Add secondary artist' name="sunday-secondary-2" onChange={handleChange} value={data.sunday.secondary[2]} />
+                    <input placeholder='Add secondary artist' name="sunday-secondary-3" onChange={handleChange} value={data.sunday.secondary[3]} />
+                    <input placeholder='Add secondary artist' name="sunday-secondary-4" onChange={handleChange} value={data.sunday.secondary[4]} />
+                    <input placeholder='Add secondary artist' name="sunday-secondary-5" onChange={handleChange} value={data.sunday.secondary[5]} />
+                    <input placeholder='Add secondary artist' name="sunday-secondary-6" onChange={handleChange} value={data.sunday.secondary[6]} />
+                    <input placeholder='Add secondary artist' name="sunday-secondary-7" onChange={handleChange} value={data.sunday.secondary[7]} />
+                    <input placeholder='Add secondary artist' name="sunday-secondary-8" onChange={handleChange} value={data.sunday.secondary[8]} />
+                  </InputsContainer>
 
-                  <h2 className="title">Others artists</h2>
-                  <div className="inputsCont2">
-                    <input placeholder='Add other' name="sunday-others-0" onChange={handleChange} value={data.sunday.others[0]} />
-                    <input placeholder='Add other' name="sunday-others-1" onChange={handleChange} value={data.sunday.others[1]} />
-                    <input placeholder='Add other' name="sunday-others-2" onChange={handleChange} value={data.sunday.others[2]} />
-                    <input placeholder='Add other' name="sunday-others-3" onChange={handleChange} value={data.sunday.others[3]} />
-                    <input placeholder='Add other' name="sunday-others-4" onChange={handleChange} value={data.sunday.others[4]} />
-                    <input placeholder='Add other' name="sunday-others-5" onChange={handleChange} value={data.sunday.others[5]} />
-                    <input placeholder='Add other' name="sunday-others-6" onChange={handleChange} value={data.sunday.others[6]} />
-                    <input placeholder='Add other' name="sunday-others-7" onChange={handleChange} value={data.sunday.others[7]} />
-                    <input placeholder='Add other' name="sunday-others-8" onChange={handleChange} value={data.sunday.others[8]} />
-                    <input placeholder='Add other' name="sunday-others-9" onChange={handleChange} value={data.sunday.others[9]} />
-                    <input placeholder='Add other' name="sunday-others-10" onChange={handleChange} value={data.sunday.others[10]} />
-                    <input placeholder='Add other' name="sunday-others-11" onChange={handleChange} value={data.sunday.others[11]} />
-                    <input placeholder='Add other' name="sunday-others-12" onChange={handleChange} value={data.sunday.others[12]} />
-                    <input placeholder='Add other' name="sunday-others-13" onChange={handleChange} value={data.sunday.others[13]} />
-                    <input placeholder='Add other' name="sunday-others-14" onChange={handleChange} value={data.sunday.others[14]} />
-                  </div>
+                  <InputsContainer title={"Other artists"} >
+                    <input placeholder='Add other artist' name="sunday-others-0" onChange={handleChange} value={data.sunday.others[0]} />
+                    <input placeholder='Add other artist' name="sunday-others-1" onChange={handleChange} value={data.sunday.others[1]} />
+                    <input placeholder='Add other artist' name="sunday-others-2" onChange={handleChange} value={data.sunday.others[2]} />
+                    <input placeholder='Add other artist' name="sunday-others-3" onChange={handleChange} value={data.sunday.others[3]} />
+                    <input placeholder='Add other artist' name="sunday-others-4" onChange={handleChange} value={data.sunday.others[4]} />
+                    <input placeholder='Add other artist' name="sunday-others-5" onChange={handleChange} value={data.sunday.others[5]} />
+                    <input placeholder='Add other artist' name="sunday-others-6" onChange={handleChange} value={data.sunday.others[6]} />
+                    <input placeholder='Add other artist' name="sunday-others-7" onChange={handleChange} value={data.sunday.others[7]} />
+                    <input placeholder='Add other artist' name="sunday-others-8" onChange={handleChange} value={data.sunday.others[8]} />
+                    <input placeholder='Add other artist' name="sunday-others-9" onChange={handleChange} value={data.sunday.others[9]} />
+                    <input placeholder='Add other artist' name="sunday-others-10" onChange={handleChange} value={data.sunday.others[10]} />
+                    <input placeholder='Add other artist' name="sunday-others-11" onChange={handleChange} value={data.sunday.others[11]} />
+                    <input placeholder='Add other artist' name="sunday-others-12" onChange={handleChange} value={data.sunday.others[12]} />
+                    <input placeholder='Add other artist' name="sunday-others-13" onChange={handleChange} value={data.sunday.others[13]} />
+                    <input placeholder='Add other artist' name="sunday-others-14" onChange={handleChange} value={data.sunday.others[14]} />
+                  </InputsContainer>
                 </DayInputs>
               </div>
-              <button type="button" onClick={handleDownloadImage} disabled={isDisabledDownloadButton}>Download as Image</button>
+              {!isMobile  ? 
+                  <button type="button" onClick={handleDownloadImage} disabled={isDisabledDownloadButton}>Download</button>
+                : 
+                  <button type="button" onClick={handleDownloadImage} disabled={isDisabledDownloadButton}>Preview</button>
+              }
             </Inner>
           </div>
         </Col>
@@ -396,22 +403,22 @@ function App() {
             {themeSelected === "Fantasy 01" ? 
               <div className="fantasyCont hideMobile" ref={printRef}>
                   <div className="fantasy01CircleCont">
+                    <img src={MainCircle} className="main_circle2 rotateCircle" alt="main_circle" />
                     <img src={MainCircle} className="main_circle2" alt="main_circle" />
+                    <img src={MainCircle} className="main_circle2 rotateCircle" alt="main_circle" />
                     <img src={MainCircle} className="main_circle2" alt="main_circle" />
+                    <img src={MainCircle} className="main_circle2 rotateCircle" alt="main_circle" />
                     <img src={MainCircle} className="main_circle2" alt="main_circle" />
-                    <img src={MainCircle} className="main_circle2" alt="main_circle" />
-                    <img src={MainCircle} className="main_circle2" alt="main_circle" />
-                    <img src={MainCircle} className="main_circle2" alt="main_circle" />
-                    <img src={MainCircle} className="main_circle2" alt="main_circle" />
+                    <img src={MainCircle} className="main_circle2 rotateCircle" alt="main_circle" />
                     <img src={MainCircle} className="main_circle2" alt="main_circle" />
                     <img src={MainCircle} className="main_circle" alt="main_circle" />
+                    <img src={MainCircle} className="main_circle2 rotateCircle" alt="main_circle" />
                     <img src={MainCircle} className="main_circle2" alt="main_circle" />
+                    <img src={MainCircle} className="main_circle2 rotateCircle" alt="main_circle" />
                     <img src={MainCircle} className="main_circle2" alt="main_circle" />
+                    <img src={MainCircle} className="main_circle2 rotateCircle" alt="main_circle" />
                     <img src={MainCircle} className="main_circle2" alt="main_circle" />
-                    <img src={MainCircle} className="main_circle2" alt="main_circle" />
-                    <img src={MainCircle} className="main_circle2" alt="main_circle" />
-                    <img src={MainCircle} className="main_circle2" alt="main_circle" />
-                    <img src={MainCircle} className="main_circle2" alt="main_circle" />
+                    <img src={MainCircle} className="main_circle2 rotateCircle" alt="main_circle" />
                     <img src={MainCircle} className="main_circle2" alt="main_circle" />
                   </div>
                   <h1 className="fantasy01Title">My Dream Festival Lineup</h1>
@@ -423,7 +430,7 @@ function App() {
               null
             }
 
-            {themeSelected === "default" ? 
+            {themeSelected === "default" && !isMobile ? 
               <div className="default">
                 <div className="contentContainer">
                   <div className="circleDefault1"></div>

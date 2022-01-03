@@ -1,8 +1,10 @@
 import styled, { css } from "styled-components";
+import ModalBack from '../src/images/fantasy_background.png'
 
 export const DayInputs = styled.div`
     display: ${props => (props.reveal ? 'flex' : 'none')};
     flex-direction:column;
+    width:100%;
 
     @media (max-width: 488px) {
         width:100%;
@@ -16,6 +18,10 @@ export const Tab = styled.span`
     border-bottom:${props => (props.selected ? '2px solid rgba(20,20,20)' : '')};
     cursor:pointer;
     margin:40px 0;
+
+    @media (max-width: 488px) {
+        font-size:20px;
+    }
 `;
 
 export const Separator = styled.div`
@@ -27,6 +33,10 @@ export const Separator = styled.div`
     font-family: 'Philosopher', sans-serif;
     font-weight: 700;
     margin:10px 0;
+
+    @media (max-width: 488px) {
+        font-size:26px;
+    }
 `;
 
 export const ThemesContainer = styled.div`
@@ -106,28 +116,63 @@ export const Modal = styled.div`
     justify-content: center;
     align-items: center;
 
-    div{
-        background-color: rgba(255, 255, 255, 1);
-        border-radius:10px;
-        backdrop-filter:blur(13px);
-        width:90%;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        padding:10px 0 10px 0;
-    }
-
     img{
         width:95%;
     }
 
     span{
-        font-size:20px;
-        margin:30px 0 0px 0;
+        font-size:16px;
+        margin:20px 0 40px 0;
     }
 
     .modalCont{
         display: flex;
         flex-direction:column;
+        justify-content: center;
+        align-items: center;
+        position:relative;
+    }
+
+    .circleModal1{
+        width:150px;
+        height: 150px;
+        border-radius: 100px;
+        background-color: rgba(109, 194, 255, 1);
+        filter: blur(80px);
+        position:absolute;
+        z-index:-1;
+        top:0px;
+        left:0px;
+    }
+
+    .circleModal2{
+        width:150px;
+        height: 150px;
+        border-radius: 100px;
+        background-color: rgba(139, 255, 213, 1);
+        filter: blur(80px);
+        position:absolute;
+        z-index:-1;
+        top:400px;
+        right:0px;
+    }
+
+    .circleModal3{
+        width:150px;
+        height: 150px;
+        border-radius: 100px;
+        background-color: rgba(128, 0, 255, 0.4);
+        filter: blur(80px);
+        position:absolute;
+        z-index:-1;
+        top:400px;
+        left:0px;
+    }
+
+    .close{
+        width:20px;
+        position:absolute;
+        top:-40px;
+        right:20px;
     }
 `;
