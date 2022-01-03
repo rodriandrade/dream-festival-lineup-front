@@ -100,10 +100,9 @@ function App() {
       theme: themeSelected
     }
     // https://dream-festival-lineup-backend.herokuapp.com/generate
-    const get = await axios.post('http://localhost:4000/generate', poster)
+    const get = await axios.post('https://dream-festival-lineup-backend.herokuapp.com/generate', poster)
     console.log(get)
     setPreviewPoster(get.data.image)
-    
     
     if(!isMobile){
       var link = document.createElement('a');
@@ -111,22 +110,6 @@ function App() {
       link.href = get.data.image;
       link.click();
     }
-       
-    /*
-    const mobile = { quality: 0.95 }
-
-   console.log(printRef.current)
-    toJpeg(printRef.current, mobile)
-    .then(function (dataUrl) {
-      var link = document.createElement('a');
-      link.download = 'my-image-name.jpeg';
-      link.href = dataUrl;
-      link.click();
-    });
-
-
-    
-    */
   };
 
   const downloadImageMobile = () => {
@@ -148,12 +131,8 @@ function App() {
     if(!checkArray){
       arrData[identifiers[0]][identifiers[1]] = []
     }
-    console.log(checkArray)
-    setData(arrData)
-  }
 
-  const scrollToTheme = () => {
-    window.scrollTo(0, 500);
+    setData(arrData)
   }
 
   return (
@@ -177,7 +156,7 @@ function App() {
                   <img className="s" src={Shine} alt="shine" />
                   <img className="a" src={Shine} alt="shine" />
                 </div>
-                <span>Generating image...</span>
+                <span className="modalLoadingText">Generating image...</span>
               </div>
             }
           </div>
@@ -195,7 +174,7 @@ function App() {
                   <img className="shine2" src={Shine} alt="shine" />
                 </div>
                 <h1 className="title2">DREAM FESTIVAL LINEUP</h1>
-                <p>Prepare the lineup of your dreams</p> 
+                <p className="heroDescription">Prepare the lineup of your dreams</p> 
                 <button>Prepare lineup</button>
             </div>
           

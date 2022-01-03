@@ -22,6 +22,10 @@ export const Tab = styled.span`
     @media (max-width: 488px) {
         font-size:20px;
     }
+
+    @media (max-width: 320px) {
+        font-size:18px;
+    }
 `;
 
 export const Separator = styled.div`

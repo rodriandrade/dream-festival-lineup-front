@@ -40,5 +40,21 @@ export const TitleContainer = styled.div`
         }
     }
 
-    
+    @media (max-width: 360px) {
+        h2{
+            font-size:20px;
+        }
+        .chevron{
+            width:24px;
+        }
+    }
+
+    @media (max-width: 320px) {
+        h2{
+            font-size:20px;
+        }
+        .chevron{
+            width:24px;
+        }
+    }
 `;
