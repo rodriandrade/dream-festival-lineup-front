@@ -38,6 +38,9 @@ export const Separator = styled.div`
     font-weight: 700;
     margin:10px 0;
 
+    @media (max-width: 1366px) {
+        font-size:30px;
+    }
     @media (max-width: 488px) {
         font-size:26px;
     }
@@ -64,6 +67,11 @@ export const ThemeContainer = styled.div`
         padding:10px;
         color: rgba(20,20,20)
     }
+
+    @media (max-width: 1366px) {
+        width:170px;
+    }
+
 `;
 
 export const ImageContainer = styled.div`
@@ -79,6 +87,11 @@ export const ImageContainer = styled.div`
         height:300px;
         position:absolute;
         top:0;
+
+        @media (max-width: 1366px) {
+            width:170px;
+            height:220px;
+        }
     }
 
     .checkIcon{
@@ -90,6 +103,11 @@ export const ImageContainer = styled.div`
         left:50%;
         transform: translate(-50%, -50%);
     }
+
+    @media (max-width: 1366px) {
+        width:170px;
+        height:220px;
+    }
 `;
 
 export const ThemeImage = styled.img`
@@ -99,6 +117,11 @@ export const ThemeImage = styled.img`
     filter: ${props => (props.themeSelected ? 'blur(5px)' : '')};
     //background-image: ${props => (props.theme ? 'url("/src/images/lolla-theme.png")' : '')};
     border-radius:10px;
+
+    @media (max-width: 1366px) {
+        width:170px;
+        height: 220px;
+    }
 `;
 
 export const Inner = styled.div`

@@ -21,6 +21,8 @@ import {Grid, Col} from '../src/components/Grid'
 import { toPng, toJpeg } from 'html-to-image';
 import axios from 'axios'
 import InputsContainer from '../src/components/InputsContainer';
+import Footer from '../src/components/Footer'
+import Header from '../src/components/Header'
 
 function App() {
 
@@ -51,6 +53,12 @@ function App() {
   const [openModal, setOpenModal] = useState(false)
   const [isOpenInputContainer, setIsOpenInputContainer] = useState(false)
   const printRef = React.useRef();
+
+  const colors = ["#fedc00", "#fe4239", "#ff99fd", "#b15cff", "#a3f89b", "#0070f0", "#00ff00"]
+
+    function getRandom(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) ) + min;
+    }
 
   useEffect(() => {
     const windowWidth = window.screen.width
@@ -167,7 +175,6 @@ function App() {
 
       <Grid>
         <Col desktop={6} mobile={12}>
-        
             <div className="hero">
                 <div className="circleLogo">
                   <img className="shine" src={Shine} alt="shine" />
@@ -184,16 +191,18 @@ function App() {
             <div className="circle1"></div>
             <div className="circle2"></div>
             <div className="circle3"></div>
+
             <div className="circle4"></div>
-            <div className="circle5"></div>
+            
             <div className="circle6"></div>
-       
+            
 
             <Inner>
                 
               <Separator id="theme">Themes</Separator>
-              
+                <span className="separatorDescription">Select a theme to start making your dream lineup.</span>
                 <ThemesContainer>
+                
                 <Grid>
                   <Col desktop={4} mobile={12}>
                     <ThemeContainer onClick={()=>setThemeSelected('Lollapalooza')} themeSelected={themeSelected === "Lollapalooza" ? true : false} >
@@ -215,12 +224,6 @@ function App() {
                     </ThemeContainer>
                   </Col>
 
-                  <Col desktop={4} mobile={12}>
-                    <ThemeContainer onClick={()=>setThemeSelected('Fantasy 02')}>
-                      <ThemeImage></ThemeImage>
-                      <p onClick={()=>setThemeSelected('Lollapalooza')}>Fantasy 02</p>
-                    </ThemeContainer>
-                  </Col>
                   </Grid>
               
                 </ThemesContainer>
@@ -233,13 +236,13 @@ function App() {
               </div>
               <div className="inputsCont3">
                 <DayInputs reveal={fridayInputs}>
-                  <InputsContainer title={"Headliners artists"} >
+                  <InputsContainer title={"Headliners artists"} restrictCircle={true} isMobile={isMobile} >
                     <input placeholder='Add headliner artist' name="friday-headliners-0" onChange={handleChange} value={data.friday.headliners[0]}/>
                     <input placeholder='Add headliner artist' name="friday-headliners-1" onChange={handleChange} value={data.friday.headliners[1]}/>
                     <input placeholder='Add headliner artist' name="friday-headliners-2" onChange={handleChange} value={data.friday.headliners[2]}/>
                   </InputsContainer>
 
-                  <InputsContainer title={"Secondary artists"} >
+                  <InputsContainer title={"Secondary artists"} restrictCircle={true} isMobile={isMobile} >
                     <input placeholder='Add secondary artist' name="friday-secondary-0" onChange={handleChange} value={data.friday.secondary[0]}/>
                     <input placeholder='Add secondary artist' name="friday-secondary-1" onChange={handleChange} value={data.friday.secondary[1]}/>
                     <input placeholder='Add secondary artist' name="friday-secondary-2" onChange={handleChange} value={data.friday.secondary[2]}/>
@@ -251,7 +254,7 @@ function App() {
                     <input placeholder='Add secondary artist' name="friday-secondary-8" onChange={handleChange} value={data.friday.secondary[8]}/>
                   </InputsContainer>
 
-                  <InputsContainer title={"Other artists"} >
+                  <InputsContainer title={"Other artists"} restrictCircle={false} isMobile={isMobile} >
                     <input placeholder='Add other artist' name="friday-others-0" onChange={handleChange} value={data.friday.others[0]}/>
                     <input placeholder='Add other artist' name="friday-others-1" onChange={handleChange} value={data.friday.others[1]}/>
                     <input placeholder='Add other artist' name="friday-others-2" onChange={handleChange} value={data.friday.others[2]}/>
@@ -272,13 +275,13 @@ function App() {
                 </DayInputs>
                 
                 <DayInputs reveal={saturdayInputs}>
-                  <InputsContainer title={"Headliners artists"} >
+                  <InputsContainer title={"Headliners artists"} restrictCircle={true} isMobile={isMobile} >
                     <input placeholder='Add headliner artist' name="saturday-headliners-0" onChange={handleChange} value={data.saturday.headliners[0]} />
                     <input placeholder='Add headliner artist' name="saturday-headliners-1" onChange={handleChange} value={data.saturday.headliners[1]} />
                     <input placeholder='Add headliner artist' name="saturday-headliners-2" onChange={handleChange} value={data.saturday.headliners[2]} />
                   </InputsContainer>
 
-                  <InputsContainer title={"Secondary artists"} >
+                  <InputsContainer title={"Secondary artists"} restrictCircle={true} isMobile={isMobile} >
                     <input placeholder='Add secondary artist' name="saturday-secondary-0" onChange={handleChange} value={data.saturday.secondary[0]} />
                     <input placeholder='Add secondary artist' name="saturday-secondary-1" onChange={handleChange} value={data.saturday.secondary[1]} />
                     <input placeholder='Add secondary artist' name="saturday-secondary-2" onChange={handleChange} value={data.saturday.secondary[2]} />
@@ -290,7 +293,7 @@ function App() {
                     <input placeholder='Add secondary artist' name="saturday-secondary-8" onChange={handleChange} value={data.saturday.secondary[8]} />
                   </InputsContainer>
 
-                  <InputsContainer title={"Other artists"} >
+                  <InputsContainer title={"Other artists"} restrictCircle={false} isMobile={isMobile} >
                     <input placeholder='Add other artist' name="saturday-others-0" onChange={handleChange} value={data.saturday.others[0]} />
                     <input placeholder='Add other artist' name="saturday-others-1" onChange={handleChange} value={data.saturday.others[1]} />
                     <input placeholder='Add other artist' name="saturday-others-2" onChange={handleChange} value={data.saturday.others[2]} />
@@ -310,13 +313,13 @@ function App() {
                 </DayInputs>
                 
                 <DayInputs reveal={sundayInputs}>
-                  <InputsContainer title={"Headliners artists"} >
+                  <InputsContainer title={"Headliners artists"} restrictCircle={true} isMobile={isMobile} >
                     <input placeholder='Add headliner artist' name="sunday-headliners-0" onChange={handleChange} value={data.sunday.headliners[0]} />
                     <input placeholder='Add headliner artist' name="sunday-headliners-1" onChange={handleChange} value={data.sunday.headliners[1]} />
                     <input placeholder='Add headliner artist' name="sunday-headliners-2" onChange={handleChange} value={data.sunday.headliners[2]} />
                   </InputsContainer>
 
-                  <InputsContainer title={"Secondary artists"} >
+                  <InputsContainer title={"Secondary artists"} restrictCircle={true} isMobile={isMobile} >
                     <input placeholder='Add secondary artist' name="sunday-secondary-0" onChange={handleChange} value={data.sunday.secondary[0]} />
                     <input placeholder='Add secondary artist' name="sunday-secondary-1" onChange={handleChange} value={data.sunday.secondary[1]} />
                     <input placeholder='Add secondary artist' name="sunday-secondary-2" onChange={handleChange} value={data.sunday.secondary[2]} />
@@ -328,7 +331,7 @@ function App() {
                     <input placeholder='Add secondary artist' name="sunday-secondary-8" onChange={handleChange} value={data.sunday.secondary[8]} />
                   </InputsContainer>
 
-                  <InputsContainer title={"Other artists"} >
+                  <InputsContainer title={"Other artists"} restrictCircle={false} isMobile={isMobile} >
                     <input placeholder='Add other artist' name="sunday-others-0" onChange={handleChange} value={data.sunday.others[0]} />
                     <input placeholder='Add other artist' name="sunday-others-1" onChange={handleChange} value={data.sunday.others[1]} />
                     <input placeholder='Add other artist' name="sunday-others-2" onChange={handleChange} value={data.sunday.others[2]} />
@@ -350,9 +353,10 @@ function App() {
               {!isMobile  ? 
                   <button type="button" onClick={handleDownloadImage} disabled={isDisabledDownloadButton}>Download</button>
                 : 
-                  <button type="button" onClick={handleDownloadImage} disabled={isDisabledDownloadButton}>Preview</button>
+                  <button type="button" onClick={handleDownloadImage} disabled={isDisabledDownloadButton}>Preview image</button>
               }
             </Inner>
+            <Footer></Footer>
           </div>
         </Col>
         <Col desktop={6} mobile={12}>
@@ -371,9 +375,9 @@ function App() {
                   <img src={Cloud2} alt="cloud" className='cloud5'/>
                   <img src={Lollapalooza} alt="lollapalooza_logo" /> 
                   {/*<h3>18, 19 y 20 de Marzo 2022 / Hipódromo de San Isidro</h3>*/}
-                  {data.friday.headliners.length != 0 || data.friday.secondary.length != 0 || data.friday.others.length != 0 ? <DayLineUp day={"FRIDAY"} color={"#51fa65"} headliners={data.friday.headliners} secondaryHeadliners={data.friday.secondary} otherArtists={data.friday.others} theme={themeSelected} /> : null }
-                  {data.saturday.headliners.length != 0 || data.saturday.secondary.length != 0 || data.saturday.others.length != 0 ? <DayLineUp day={"SATURDAY"} color={"#fcdc01"} headliners={data.saturday.headliners} secondaryHeadliners={data.saturday.secondary} otherArtists={data.saturday.others} theme={themeSelected} /> : null }
-                  {data.sunday.headliners.length != 0 || data.sunday.secondary.length != 0 || data.sunday.others.length != 0 ? <DayLineUp day={"SUNDAY"} color={"#fe3eb4"} headliners={data.sunday.headliners} secondaryHeadliners={data.sunday.secondary} otherArtists={data.sunday.others} theme={themeSelected} /> : null }
+                  {data.friday.headliners.length != 0 || data.friday.secondary.length != 0 || data.friday.others.length != 0 ? <DayLineUp day={"FRIDAY"} color={"#51fa65"} headliners={data.friday.headliners} secondaryHeadliners={data.friday.secondary} otherArtists={data.friday.others} theme={themeSelected} randomColor={"#51fa65"} /> : null }
+                  {data.saturday.headliners.length != 0 || data.saturday.secondary.length != 0 || data.saturday.others.length != 0 ? <DayLineUp day={"SATURDAY"} color={"#fcdc01"} headliners={data.saturday.headliners} secondaryHeadliners={data.saturday.secondary} otherArtists={data.saturday.others} theme={themeSelected} randomColor={"#fcdc01"} /> : null }
+                  {data.sunday.headliners.length != 0 || data.sunday.secondary.length != 0 || data.sunday.others.length != 0 ? <DayLineUp day={"SUNDAY"} color={"#fe3eb4"} headliners={data.sunday.headliners} secondaryHeadliners={data.sunday.secondary} otherArtists={data.sunday.others} theme={themeSelected} randomColor={"#fe3eb4"} /> : null }
               </div>
             : 
               null
@@ -415,9 +419,8 @@ function App() {
                   <div className="circleDefault1"></div>
                   <div className="circleDefault2"></div>
                   <div className="circleDefault3"></div>
-                  <h1>Poster preview</h1>
+                  <h1 className="defaultPosterTitle">Poster preview</h1>
                   <span>Select a theme to make your dream lineup :)</span>
-                  <a href="#theme" >Select theme</a>
                 </div>
               </div>
               : null

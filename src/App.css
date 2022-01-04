@@ -57,7 +57,7 @@
   filter: blur(150px);
   position:absolute;
   z-index:-1;
-  top:2050px;
+  top:1750px;
   left:350px;
   /*
   opacity: 0.7;
@@ -74,7 +74,7 @@
   position:absolute;
   z-index:-2;
   right:0;
-  top:1500px;
+  top:1300px;
 }
 
 .circle6{
@@ -86,7 +86,7 @@
   position:absolute;
   z-index:-1;
   left:0;
-  top:1300px;
+  top:1100px;
 }
 
 @keyframes colorChange {
@@ -141,6 +141,12 @@
   top:0;
   border-right:1px solid rgb(204, 204, 204);
   overflow:hidden;
+}
+
+.separatorDescription{
+  font-size:22px;
+  text-align: center;
+  margin:20px 0 0 10px;
 }
 
 
@@ -203,8 +209,7 @@ input{
 }
 
 button:hover{
-  background-color:#fff;
-  color: rgb(16, 27, 56);
+  opacity: 0.7;
 }
 
 img{
@@ -212,7 +217,6 @@ img{
 }
 
 h1{
-  cursor:pointer;
   transition: 0.5s;
 }
 
@@ -614,12 +618,129 @@ h3{
   background-image: url("/src/images/modalBackground.png");
 }
 
+.defaultPosterTitle{
+  margin:10px;
+  font-family: 'Philosopher', cursive;
+}
+
 
 /* RESPONSIVE */
+
+@media (max-width: 1366px) {
+  .main_circle{
+    width:60px;
+    animation: rotateLogo infinite 10s linear; 
+  }
+  .main_circle2{
+    width:35px;
+    animation: rotateLogo infinite 20s linear; 
+  }
+
+  .fantasy01Title{
+    font-size:16px;
+  }
+
+  .fixed{
+    width:50%;
+  }
+
+  .default{
+    width:100%;
+  }
+
+  .fantasyCont{
+    width:100%;
+  }
+
+  input{
+    width:85%;
+  }
+
+  .title2{
+    font-size:38px;
+    text-align: center;
+    margin-top:30px;
+  }
+
+  p{
+    font-size:20px;
+  }
+
+  .separatorDescription{
+    font-size:20px;
+  }
+
+  .circle4{
+    width:50%;
+    border-radius: 100%;
+    background-color: rgba(109, 194, 255, 1);
+    filter: blur(150px);
+    position:absolute;
+    z-index:-1;
+    top:1250px;
+    left:0px;
+  }
+  
+  .circle5{
+    width:50%;
+    border-radius: 100%;
+    background-color: rgba(128, 0, 255, 0.4);
+    filter: blur(150px);
+    position:absolute;
+    z-index:-2;
+    right:0;
+    top:1200px;
+  }
+  
+  .circle6{
+    width:50%;
+    border-radius: 100%;
+    background-color: rgba(139, 255, 213, 1);
+    filter: blur(150px);
+    position:absolute;
+    z-index:-1;
+    left:0;
+    top:1000px;
+  }
+
+  .cont{
+    width:100%;
+    position:relative;
+    height:100vh;
+  }
+
+  .kite, .kite5, .cloud, .cloud2, .cloud3, .cloud4, .cloud5{
+    width:50px;
+  }
+
+  .kite{
+    bottom:0;
+    left:0px;
+  }
+
+  .kite5{
+    right:0;
+  }
+
+  .kite4, .kite3{
+    top:320px;
+  }
+
+
+  .cloud4, .cloud5{
+    bottom:30px;
+  }
+
+  .kite2, .kite3, .kite4{
+    width:70px;
+  }
+
+}
 
 @media (max-width: 488px) {
   .main{
     width:100%;
+    border:none;
   }
 
   .heroDescription{
@@ -664,7 +785,7 @@ h3{
   }
 
   .circle4{
-    width:70%;
+    width:50%;
     border-radius: 100%;
     background-color: rgba(109, 194, 255, 1);
     filter: blur(150px);
@@ -679,18 +800,18 @@ h3{
   }
   
   .circle5{
-    width:70%;
+    width:50%;
     border-radius: 100%;
     background-color: rgba(128, 0, 255, 0.4);
     filter: blur(150px);
     position:absolute;
     z-index:-2;
     right:0;
-    top:2500px;
+    top:1800px;
   }
   
   .circle6{
-    width:70%;
+    width:50%;
     border-radius: 100%;
     background-color: rgba(139, 255, 213, 1);
     filter: blur(150px);

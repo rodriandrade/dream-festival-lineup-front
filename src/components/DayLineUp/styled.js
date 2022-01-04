@@ -28,6 +28,10 @@ export const Container = styled.div`
             return "'Philosopher', cursive;";
         }
     }};
+
+    @media (max-width: 1366px) {
+        width:90%;
+    }
 `;
 
 export const Headliners = styled.h1`
@@ -71,7 +75,7 @@ export const Headliners = styled.h1`
                     content:"";
                     width:12px;
                     height:12px;
-                    background-color: #8effab;
+                    background-color: ${props.randomColor};
                     position:absolute;
                     transform: translateX(90%) rotate(45deg);
                     top: 17px;
@@ -83,12 +87,32 @@ export const Headliners = styled.h1`
                         height:0;
                     }
                 }
+                @media (max-width: 1366px) {
+                    ::after{
+                        content:"";
+                        width:9px;
+                        height:9px;
+                        transform: translateX(150%) rotate(45deg);
+                        top: 13px;
+                    };
+                }
             `
         }
     }};
 
     :first-of-type{
         margin-left:0px;
+    }
+
+    @media (max-width: 1366px) {
+        font-size:${(props) => {
+            switch (props.theme) {
+                case "Lollapalooza":
+                    return "30px";
+                case "Fantasy 01":
+                    return "20px";
+            }
+        }};
     }
 `;
 
@@ -140,7 +164,7 @@ export const SecondaryHeadliners = styled.span`
                     content:"";
                     width:8px;
                     height:8px;
-                    background-color: #8effab;
+                    background-color: ${props.randomColor};
                     position:absolute;
                     transform: translateX(160%) rotate(45deg);
                     top: 10px;
@@ -152,9 +176,37 @@ export const SecondaryHeadliners = styled.span`
                         height:0;
                     }
                 }
+                @media (max-width: 1366px) {
+                    ::after{
+                        content:"";
+                        width:5px;
+                        height:5px;
+                        transform: translateX(170%) rotate(45deg);
+                        top: 7px;
+                    };
+                }
             `
         }
     }};
+
+    @media (max-width: 1366px) {
+        font-size:${(props) => {
+            switch (props.theme) {
+                case "Lollapalooza":
+                    return "18px";
+                case "Fantasy 01":
+                    return "14px";
+            }
+        }};
+        margin:${(props) => {
+            switch (props.theme) {
+                case "Lollapalooza":
+                    return "0 10px";
+                case "Fantasy 01":
+                    return "2px 15px 2px 0";
+            }
+        }};
+    }
 `;
 
 export const OtherArtists = styled.span`
@@ -202,7 +254,7 @@ export const OtherArtists = styled.span`
                     content:"";
                     width:5px;
                     height:5px;
-                    background-color: #8effab;
+                    background-color: ${props.randomColor};
                     position:absolute;
                     transform: translateX(120%) rotate(45deg);
                     top: 8px;
@@ -214,6 +266,15 @@ export const OtherArtists = styled.span`
                         height:0;
                     }
                 }
+                @media (max-width: 1366px) {
+                    ::after{
+                        content:"";
+                        width:4px;
+                        height:4px;
+                        transform: translateX(160%) rotate(45deg);
+                        top: 6px;
+                    };
+                }
             `
         }
     }};
@@ -221,6 +282,24 @@ export const OtherArtists = styled.span`
     
     :first-of-type{
         margin-left:0px;
+    }
+
+    @media (max-width: 1366px) {
+        font-size:${(props) => {
+            switch (props.theme) {
+                case "Lollapalooza":
+                    return "16px";
+                case "Fantasy 01":
+                    return "12px";
+            }
+        }};
+        margin:${(props) => {
+        console.log(props)
+            switch (props.theme) {
+                case "Fantasy 01":
+                    return "2px 15px 2px 0";
+            }
+        }};
     }
 `;
 
@@ -239,6 +318,10 @@ export const DayTitle = styled.span`
     }};
     text-shadow: ${props => (props.theme === "Lollapalooza" ? '-1px 1px 3px #272727' : '')};
     text-shadow: ${props => (props.theme === "Lollapalooza" ? '2px 2px 0 #2d2d2d, 2px -2px 0 #2d2d2d, -2px 2px 0 #2d2d2d, -2px -2px 0 #2d2d2d, 2px 0px 0 #2d2d2d, 0px 2px 0 #2d2d2d, -2px 0px 0 #2d2d2d, 0px -2px 0 #2d2d2d' : '')};
+
+    @media (max-width: 1366px) {
+        font-size:22px;
+    }
 `;
 
 export const DayContainer = styled.div`

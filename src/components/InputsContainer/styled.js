@@ -12,8 +12,16 @@ export const Container = styled.div`
     justify-content: center;
     flex-wrap:wrap;
     margin-bottom:40px;
-    z-index:10;
     position: relative;
+    z-index:20;
+
+    @media (max-width: 1366px) {
+        padding:20px 0;
+    }
+
+    @media (max-width: 488px) {
+        padding:10px 0;
+    }
 `;
 
 export const TitleContainer = styled.div`
@@ -22,12 +30,13 @@ export const TitleContainer = styled.div`
     align-items: center;
     width:100%;
     border-bottom: ${props => (props.isOpen ? '' : '1px solid rgb(204, 204, 204)')};
-
+    z-index:20;
     
     .chevron{
         width:30px;
         cursor:pointer;
         transform: ${props => (props.isOpen ? 'rotate(180deg)' : 'rotate(0deg)')};
+        z-index:20;
         //animation: ${props => (props.isOpen ? 'rotateChevron 1s linear' : 'rotateChevron backwards 1s linear')};
 
         @keyframes rotateChevron {
@@ -57,4 +66,40 @@ export const TitleContainer = styled.div`
             width:24px;
         }
     }
+`;
+
+export const Circle = styled.div`
+    width:50%;
+    height:500px;
+    border-radius: 100%;
+    filter: blur(150px);
+    background-color: rgba(109, 194, 255, 1);
+    position:absolute;
+    z-index:-1;
+    top:0px;
+    left:200px;
+`;
+
+export const Circle2 = styled.div`
+    width:50%;
+    height:500px;
+    border-radius: 100%;
+    filter: blur(150px);
+    background-color: rgba(139, 255, 213, 1);
+    position:absolute;
+    z-index:-1;
+    top:${props => (props.restrictCircle ? '0px' : '400px')};
+    right:0px;
+`;
+
+export const Circle3 = styled.div`
+    width:${props => (props.restrictCircle ? '60%' : '50%')};
+    height:600px;
+    border-radius: 100%;
+    filter: blur(150px);
+    background-color: rgba(128, 0, 255, 0.4);
+    position:absolute;
+    z-index:-1;
+    top: ${props => (props.restrictCircle ? '100px' : '800px')};
+    right:0px;
 `;
